@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { AiFillStar } from "react-icons/ai";
 
 interface CardProps {
   category: string;
@@ -13,7 +14,7 @@ interface CardProps {
   title: string;
 }
 
-function Card({ id, image, title }: CardProps) {
+function Card({ id, image, title, description, price, rating }: CardProps) {
   return (
     <div key={id} className="card card-compact w-auto bg-base-100 shadow-xl pt-5">
       <figure>
@@ -23,8 +24,13 @@ function Card({ id, image, title }: CardProps) {
         <Link to={`/product/${id}`}>
           <h2 className="card-title">{title}</h2>
         </Link>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
-        <div className="card-actions justify-end">
+        <p>{description.substring(0, 50)}</p>
+        <span className="flex items-center">
+          <AiFillStar className="mr-1 text-lg" />
+          {rating.rate}
+        </span>
+        <div className="card-actions justify-between items-center">
+          <span className="text-xl font-semibold">{price}$</span>
           <button className="btn btn-ghost">Buy Now</button>
         </div>
       </div>
