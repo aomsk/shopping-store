@@ -3,17 +3,24 @@
 ### Features
 
 #### See products
+
 - [x] See all products
 - [x] See product detail by id
-- [ ] See product by category
+- [x] See product by category
+
 #### Search
+
 - [ ] Search Product by name
+
 #### Cart
+
 - [ ] Add product to cart
 - [ ] Remove product from cart
 - [ ] Calculate total price
 - [ ] Add, Subtract quantity
+
 #### Etc.
+
 - [ ] Suport mobile layout
 
 ### Build With
