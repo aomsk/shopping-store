@@ -1,7 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import { useEffect, useState } from "react";
+
+// Components
 import Card from "../components/Card";
+import BadgeCategory from "../components/BadgeCategory";
+
+// Util
 import { Products } from "../utils/interface";
 
 const categories: string[] = [
@@ -63,21 +68,16 @@ function Home() {
         <div className="p-5 w-full">
           {categories.map((category, index) => {
             return (
-              <div
+              <BadgeCategory
                 key={index}
-                className={
-                  selectCategory === category
-                    ? "badge badge-neutral ml-1 xl:ml-5 cursor-pointer"
-                    : "badge badge-outline ml-1 xl:ml-5 cursor-pointer"
-                }
-                onClick={() => setSelectCategory(category)}
-              >
-                {category}
-              </div>
+                category={category}
+                selectCategory={selectCategory}
+                setSelectCategory={setSelectCategory}
+              />
             );
           })}
         </div>
-        <div className="w-full p-4">
+        <div className="w-full p-5">
           <p className="text-2xl font-semibold text-end">Products: {products.length}</p>
         </div>
       </div>
