@@ -2,14 +2,18 @@
 
 ### Features
 
+#### See products
 - [x] See all products
 - [ ] See product detail
 - [ ] See product by category
+#### Search
 - [ ] Search Product by name
+#### Cart
 - [ ] Add product to cart
 - [ ] Remove product from cart
 - [ ] Calculate total price
 - [ ] Add, Subtract quantity
+#### Etc.
 - [ ] Suport mobile layout
 
 ### Build With
