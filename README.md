@@ -3,7 +3,8 @@
 ### Features
 
 - [x] See all products
-- [ ] See product by cetagory
+- [ ] See product detail
+- [ ] See product by category
 - [ ] Search Product by name
 - [ ] Add product to cart
 - [ ] Remove product from cart
