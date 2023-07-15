@@ -4,7 +4,7 @@
 
 #### See products
 - [x] See all products
-- [ ] See product detail
+- [x] See product detail by id
 - [ ] See product by category
 #### Search
 - [ ] Search Product by name
