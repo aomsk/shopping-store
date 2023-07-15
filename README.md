@@ -21,7 +21,7 @@
 
 #### Etc.
 
-- [ ] Suport mobile layout
+- [x] Suport Responsive
 
 ### Build With
 
