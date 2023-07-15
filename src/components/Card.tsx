@@ -14,7 +14,7 @@ interface CardProps {
   title: string;
 }
 
-function Card({ id, image, title, description, price, rating }: CardProps) {
+function Card({ id, image, title, description, price, rating, category }: CardProps) {
   return (
     <div key={id} className="card card-compact w-auto bg-base-100 shadow-xl pt-5">
       <figure>
@@ -24,6 +24,7 @@ function Card({ id, image, title, description, price, rating }: CardProps) {
         <Link to={`/product/${id}`}>
           <h2 className="card-title">{title}</h2>
         </Link>
+        <div className="badge badge-outline">{category}</div>
         <p>{description.substring(0, 50)}</p>
         <span className="flex items-center">
           <AiFillStar className="mr-1 text-lg" />
