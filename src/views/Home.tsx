@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, ChangeEvent } from "react";
 
 // Components
 import Card from "../components/Card";
@@ -20,6 +20,7 @@ const categories: string[] = [
 function Home() {
   const [products, setProducts] = useState<Products[]>([]);
   const [selectCategory, setSelectCategory] = useState("all");
+  const [search, setSearch] = useState<string>("");
 
   const getProductData = async () => {
     if (selectCategory === "all") {
@@ -40,12 +41,18 @@ function Home() {
         .then((response) => {
           if (response.status === 200) {
             setProducts(response.data);
+            setSearch("");
           }
         })
         .catch((error) => {
           console.log(error);
         });
     }
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+    setSelectCategory("all");
   };
 
   useEffect(() => {
@@ -61,7 +68,13 @@ function Home() {
           <label className="label">
             <span className="label-text">What do you want?</span>
           </label>
-          <input type="text" placeholder="Type here" className="input input-bordered w-full" />
+          <input
+            type="text"
+            placeholder="Type here"
+            className="input input-bordered w-full"
+            value={search}
+            onChange={handleChange}
+          />
         </div>
       </div>
       <div className="flex flex-col items-center">
@@ -78,14 +91,20 @@ function Home() {
           })}
         </div>
         <div className="w-full p-5">
-          <p className="text-2xl font-semibold text-end">Products: {products.length}</p>
+          {search.length > 0 ? (
+            ""
+          ) : (
+            <p className="text-2xl font-semibold text-end">Products: {products.length}</p>
+          )}
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-5 p-5">
         {products &&
-          products.map((product) => {
-            return <Card key={product.id} {...product} />;
-          })}
+          products
+            .filter((product) => product.title.toLowerCase().includes(search.toLowerCase()))
+            .map((product) => {
+              return <Card key={product.id} {...product} />;
+            })}
       </div>
     </>
   );
