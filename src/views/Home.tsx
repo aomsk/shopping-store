@@ -21,10 +21,10 @@ function Home() {
   const [products, setProducts] = useState<Products[]>([]);
   const [selectCategory, setSelectCategory] = useState("all");
 
-  const getProductDatasync = async () => {
-    if (selectCategory !== "") {
+  const getProductData = async () => {
+    if (selectCategory === "all") {
       await axios
-        .get(`${import.meta.env.VITE_PRODUCTS_API}/products/category/${selectCategory}`)
+        .get(`${import.meta.env.VITE_PRODUCTS_API}/products`)
         .then((response) => {
           if (response.status === 200) {
             setProducts(response.data);
@@ -34,9 +34,9 @@ function Home() {
           console.log(error);
         });
     }
-    if (selectCategory === "all" || selectCategory === "") {
+    if (selectCategory !== "all") {
       await axios
-        .get(`${import.meta.env.VITE_PRODUCTS_API}/products`)
+        .get(`${import.meta.env.VITE_PRODUCTS_API}/products/category/${selectCategory}`)
         .then((response) => {
           if (response.status === 200) {
             setProducts(response.data);
@@ -49,7 +49,7 @@ function Home() {
   };
 
   useEffect(() => {
-    getProductDatasync().catch((error) => {
+    getProductData().catch((error) => {
       console.log(error);
     });
   }, [selectCategory]);
