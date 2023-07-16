@@ -1,7 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, ChangeEvent } from "react";
+
+// Components
 import Card from "../components/Card";
+import BadgeCategory from "../components/BadgeCategory";
+
+// Util
 import { Products } from "../utils/interface";
 
 const categories: string[] = [
@@ -15,21 +20,10 @@ const categories: string[] = [
 function Home() {
   const [products, setProducts] = useState<Products[]>([]);
   const [selectCategory, setSelectCategory] = useState("all");
+  const [search, setSearch] = useState<string>("");
 
-  const getProductDatasync = async () => {
-    if (selectCategory !== "") {
-      await axios
-        .get(`${import.meta.env.VITE_PRODUCTS_API}/products/category/${selectCategory}`)
-        .then((response) => {
-          if (response.status === 200) {
-            setProducts(response.data);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-    if (selectCategory === "all" || selectCategory === "") {
+  const getProductData = async () => {
+    if (selectCategory === "all") {
       await axios
         .get(`${import.meta.env.VITE_PRODUCTS_API}/products`)
         .then((response) => {
@@ -41,50 +35,76 @@ function Home() {
           console.log(error);
         });
     }
+    if (selectCategory !== "all") {
+      await axios
+        .get(`${import.meta.env.VITE_PRODUCTS_API}/products/category/${selectCategory}`)
+        .then((response) => {
+          if (response.status === 200) {
+            setProducts(response.data);
+            setSearch("");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+    setSelectCategory("all");
   };
 
   useEffect(() => {
-    getProductDatasync().catch((error) => {
+    getProductData().catch((error) => {
       console.log(error);
     });
   }, [selectCategory]);
 
   return (
     <>
-      <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row justify-between">
-        <div className="p-5">
-          {categories.map((category, index) => {
-            return (
-              <div
-                key={index}
-                className={
-                  selectCategory === category
-                    ? "badge badge-neutral ml-5 cursor-pointer"
-                    : "badge badge-outline ml-5 cursor-pointer"
-                }
-                onClick={() => setSelectCategory(category)}
-              >
-                {category}
-              </div>
-            );
-          })}
-        </div>
-        <div className="form-control w-auto xl:w-full max-w-xs ml-5 xl:mr-5 xl:ml-0">
+      <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row justify-end items-center p-3">
+        <div className="form-control w-full xl:w-[600px] xl:mr-5 xl:ml-0">
           <label className="label">
             <span className="label-text">What do you want?</span>
           </label>
           <input
             type="text"
             placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
+            className="input input-bordered w-full"
+            value={search}
+            onChange={handleChange}
           />
+        </div>
+      </div>
+      <div className="flex flex-col items-center">
+        <div className="p-5 w-full">
+          {categories.map((category, index) => {
+            return (
+              <BadgeCategory
+                key={index}
+                category={category}
+                selectCategory={selectCategory}
+                setSelectCategory={setSelectCategory}
+              />
+            );
+          })}
+        </div>
+        <div className="w-full p-5">
+          {search.length > 0 ? (
+            ""
+          ) : (
+            <p className="text-2xl font-semibold text-end">Products: {products.length}</p>
+          )}
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-5 p-5">
         {products &&
-          products.map((product) => {
-            return <Card key={product.id} {...product} />;
-          })}
+          products
+            .filter((product) => product.title.toLowerCase().includes(search.toLowerCase()))
+            .map((product) => {
+              return <Card key={product.id} {...product} />;
+            })}
       </div>
     </>
   );
