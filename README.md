@@ -10,7 +10,7 @@
 
 #### Search
 
-- [ ] Search Product by name
+- [x] Search Product by name
 
 #### Cart
 
