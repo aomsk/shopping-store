@@ -12,7 +12,7 @@ interface CardProps {
     count: number;
   };
   title: string;
-  handleAddProductToCart: (productId: number) => void;
+  handleAddProductToCart: (id: number, image: string, price: number, title: string) => void;
 }
 
 function Card({
@@ -28,7 +28,7 @@ function Card({
   return (
     <div key={id} className="card card-compact w-auto bg-base-100 shadow-xl pt-5">
       <figure>
-        <img src={image} alt="Shoes" className="w-[100px]" />
+        <img src={image} alt="" className="w-[100px]" />
       </figure>
       <div className="card-body">
         <Link to={`/product/${id}`}>
@@ -42,7 +42,10 @@ function Card({
         </span>
         <div className="card-actions justify-between items-center">
           <span className="text-xl font-semibold">{price}$</span>
-          <button className="btn btn-ghost" onClick={() => handleAddProductToCart(id)}>
+          <button
+            className="btn btn-ghost"
+            onClick={() => handleAddProductToCart(id, image, price, title)}
+          >
             Buy Now
           </button>
         </div>
