@@ -19,6 +19,10 @@
 - [ ] Calculate total price
 - [ ] Add, Subtract quantity
 
+#### Dark Mode
+
+- [ ] Support dark, light mode
+
 #### Etc.
 
 - [x] Suport Responsive

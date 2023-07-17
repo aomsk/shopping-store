@@ -8,16 +8,21 @@ import Home from "./views/Home";
 import ProductDetail from "./views/ProductDetail";
 import Cart from "./views/Cart";
 
+// Context
+import { ThemeProvider } from "./context/ThemeContext";
+
 function App() {
   return (
-    <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
-        <Route path="/cart" element={<Cart />} />
-      </Routes>
-    </>
+    <ThemeProvider>
+      <>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
+      </>
+    </ThemeProvider>
   );
 }
 
