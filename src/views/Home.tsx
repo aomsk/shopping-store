@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
-import { useEffect, useState, ChangeEvent } from "react";
+import { useEffect, useState, ChangeEvent, useContext } from "react";
 
 // Components
 import Card from "../components/Card";
@@ -8,6 +8,9 @@ import BadgeCategory from "../components/BadgeCategory";
 
 // Util
 import { Products } from "../utils/interface";
+
+// Context
+import { CartContext, CartContextType } from "../context/CartContext";
 
 const categories: string[] = [
   "electronics",
@@ -21,6 +24,12 @@ function Home() {
   const [products, setProducts] = useState<Products[]>([]);
   const [selectCategory, setSelectCategory] = useState("all");
   const [search, setSearch] = useState<string>("");
+
+  const { addProductToCart } = useContext(CartContext) as CartContextType;
+
+  const handleAddProductToCart = (id: number, image: string, price: number, title: string) => {
+    addProductToCart({ id, image, price, title, quantity: 1 });
+  };
 
   const getProductData = async () => {
     if (selectCategory === "all") {
@@ -103,7 +112,13 @@ function Home() {
           products
             .filter((product) => product.title.toLowerCase().includes(search.toLowerCase()))
             .map((product) => {
-              return <Card key={product.id} {...product} />;
+              return (
+                <Card
+                  key={product.id}
+                  {...product}
+                  handleAddProductToCart={handleAddProductToCart}
+                />
+              );
             })}
       </div>
     </>
