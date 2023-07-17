@@ -21,7 +21,6 @@ function ProductDetail() {
     await axios
       .get(`${import.meta.env.VITE_PRODUCTS_API}/products/${id}`)
       .then((response) => {
-        console.log("response: ", response);
         if (response.status === 200) {
           setProduct(response.data);
         }

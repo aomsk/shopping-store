@@ -31,10 +31,6 @@ function Home() {
     addProductToCart({ productId, quantity: 1 });
   };
 
-  // const handleAddProductToCart = (id: number, image: string, price: number, title: string) => {
-  //   addProductToCart({ id, image, price, title, quantity: 1 });
-  // };
-
   const getProductData = async () => {
     if (selectCategory === "all") {
       await axios
