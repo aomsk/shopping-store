@@ -15,16 +15,7 @@ interface CardProps {
   handleAddProductToCart: (id: number, image: string, price: number, title: string) => void;
 }
 
-function Card({
-  id,
-  image,
-  title,
-  description,
-  price,
-  rating,
-  category,
-  handleAddProductToCart,
-}: CardProps) {
+function Card({ id, image, title, description, price, rating, category, handleAddProductToCart }: CardProps) {
   return (
     <div key={id} className="card card-compact w-auto bg-base-100 shadow-xl pt-5">
       <figure>
@@ -42,10 +33,7 @@ function Card({
         </span>
         <div className="card-actions justify-between items-center">
           <span className="text-xl font-semibold">{price}$</span>
-          <button
-            className="btn btn-ghost"
-            onClick={() => handleAddProductToCart(id, image, price, title)}
-          >
+          <button className="btn btn-ghost" onClick={() => handleAddProductToCart(id, image, price, title)}>
             Buy Now
           </button>
         </div>

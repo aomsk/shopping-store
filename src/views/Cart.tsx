@@ -7,9 +7,17 @@ import { Products } from "../utils/interface";
 import { CartContext, CartContextType } from "../context/CartContext";
 
 function Cart() {
-  const { productsInCart } = useContext(CartContext) as CartContextType;
+  const { productsInCart, addQuantity, subtractQuantity } = useContext(CartContext) as CartContextType;
   const navigate = useNavigate();
   const [products, setproducts] = useState<Products[]>([]);
+
+  const handleAddQuantity = (productId: number | undefined) => {
+    addQuantity(productId as number);
+  };
+
+  const handleSubtractQuantity = (productId: number | undefined) => {
+    subtractQuantity(productId as number);
+  };
 
   const getData = async () => {
     await axios
@@ -29,9 +37,7 @@ function Cart() {
     });
   }, [productsInCart]);
 
-  const productsInCartFilter = productsInCart.map((cartItem) =>
-    products.find((product) => product.id === cartItem.productId)
-  );
+  const productsInCartFilter = productsInCart.map((cartItem) => products.find((product) => product.id === cartItem.productId));
 
   return (
     <div className="container mx-auto xl:px-48">
@@ -44,11 +50,7 @@ function Cart() {
           return (
             <div className="card card-side bg-base-100 shadow-xl m-5 xl:pl-8 pl-5" key={index}>
               <figure>
-                <img
-                  src={product?.image}
-                  alt=""
-                  className="w-full md:w-[100px] lg:w-[100px] xl:w-[100px]"
-                />
+                <img src={product?.image} alt="" className="w-full md:w-[100px] lg:w-[100px] xl:w-[100px]" />
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{product?.title}</h2>
@@ -56,8 +58,12 @@ function Cart() {
                 <p>Quantity : {productsInCart[index]?.quantity}</p>
                 <div className="card-actions justify-end">
                   <div className="join">
-                    <button className="btn join-item">+</button>
-                    <button className="btn join-item">-</button>
+                    <button className="btn join-item" onClick={() => handleAddQuantity(product?.id)}>
+                      +
+                    </button>
+                    <button className="btn join-item" onClick={() => handleSubtractQuantity(product?.id)}>
+                      -
+                    </button>
                     <button className="btn btn-error join-item">Delete</button>
                   </div>
                 </div>

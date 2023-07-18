@@ -1,45 +1,3 @@
-// import { createContext, useState } from "react";
-
-// export interface ICartContext {
-//   id: number;
-//   image: string;
-//   price: number;
-//   title: string;
-//   quantity: number;
-// }
-
-// export type CartContextType = {
-//   productsInCart: ICartContext[];
-//   addProductToCart: (producrt: ICartContext) => void;
-// };
-
-// type Props = {
-//   children: JSX.Element | JSX.Element[];
-// };
-
-// export const CartContext = createContext<CartContextType | null>(null);
-
-// export const CartProvider = ({ children }: Props) => {
-//   const [productsInCart, setProducrts] = useState<ICartContext[]>([]);
-
-//   const addProductToCart = (producrt: ICartContext) => {
-//     const newProduct: ICartContext = {
-//       id: producrt.id,
-//       image: producrt.image,
-//       price: producrt.price,
-//       title: producrt.title,
-//       quantity: producrt.quantity,
-//     };
-//     setProducrts((prve) => [...prve, newProduct]);
-//   };
-
-//   return (
-//     <CartContext.Provider value={{ productsInCart, addProductToCart }}>
-//       {children}
-//     </CartContext.Provider>
-//   );
-// };
-
 import { createContext, useState } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -54,6 +12,8 @@ export interface ICartContext {
 export type CartContextType = {
   productsInCart: ICartContext[];
   addProductToCart: (producrt: ICartContext) => void;
+  addQuantity: (productId: number) => void;
+  subtractQuantity: (productId: number) => void;
 };
 
 type Props = {
@@ -91,9 +51,15 @@ export const CartProvider = ({ children }: Props) => {
     });
   };
 
-  return (
-    <CartContext.Provider value={{ productsInCart, addProductToCart }}>
-      {children}
-    </CartContext.Provider>
-  );
+  const addQuantity = (productId: number) => {
+    setProductsInCart((prve) => prve.map((item) => (item.productId === productId ? { ...item, quantity: item.quantity + 1 } : item)));
+  };
+
+  const subtractQuantity = (productId: number) => {
+    setProductsInCart((prve) =>
+      prve.map((item) => (item.productId === productId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item))
+    );
+  };
+
+  return <CartContext.Provider value={{ productsInCart, addProductToCart, addQuantity, subtractQuantity }}>{children}</CartContext.Provider>;
 };
