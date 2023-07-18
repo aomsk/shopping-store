@@ -21,8 +21,8 @@ function Home() {
 
   const { addProductToCart } = useContext(CartContext) as CartContextType;
 
-  const handleAddProductToCart = (productId: number) => {
-    addProductToCart({ productId, quantity: 1 });
+  const handleAddProductToCart = (productId: number, price: number) => {
+    addProductToCart({ productId, quantity: 1, price });
   };
 
   const getProductData = async () => {
@@ -71,16 +71,31 @@ function Home() {
           <label className="label">
             <span className="label-text">What do you want?</span>
           </label>
-          <input type="text" placeholder="Type here" className="input input-bordered w-full" value={search} onChange={handleChange} />
+          <input
+            type="text"
+            placeholder="Type here"
+            className="input input-bordered w-full"
+            value={search}
+            onChange={handleChange}
+          />
         </div>
       </div>
       <div className="flex flex-col items-center">
         <div className="p-5 w-full">
           {categories.map((category, index) => {
-            return <BadgeCategory key={index} category={category} selectCategory={selectCategory} setSelectCategory={setSelectCategory} />;
+            return (
+              <BadgeCategory
+                key={index}
+                category={category}
+                selectCategory={selectCategory}
+                setSelectCategory={setSelectCategory}
+              />
+            );
           })}
         </div>
-        <div className="w-full p-5">{search.length > 0 ? "" : <p className="text-2xl font-semibold text-end">Products: {products.length}</p>}</div>
+        <div className="w-full p-5">
+          {search.length > 0 ? "" : <p className="text-2xl font-semibold text-end">Products: {products.length}</p>}
+        </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-5 p-5">
         {products &&
