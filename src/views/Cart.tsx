@@ -7,7 +7,7 @@ import { Products } from "../utils/interface";
 import { CartContext, CartContextType } from "../context/CartContext";
 
 function Cart() {
-  const { productsInCart, addQuantity, subtractQuantity, removeProductFromCart } = useContext(
+  const { productsInCart, addQuantity, subtractQuantity, removeProductFromCart, removeAllproducs } = useContext(
     CartContext
   ) as CartContextType;
   const navigate = useNavigate();
@@ -52,6 +52,11 @@ function Cart() {
       <div className="p-5 text-end">
         <h1 className="text-xl xl:text-2xl font-semibold">Total Price : xxx$</h1>
         <h1 className="text-xl xl:text-2xl font-semibold">Amount : {productsInCart.length}</h1>
+        {productsInCart.length > 0 && (
+          <button className="btn btn-outline btn-error btn-sm mt-2" onClick={removeAllproducs}>
+            Delete ALl
+          </button>
+        )}
       </div>
       {productsInCartFilter.length > 0 ? (
         productsInCartFilter.map((product, index) => {

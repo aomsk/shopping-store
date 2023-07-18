@@ -15,6 +15,7 @@ export type CartContextType = {
   addQuantity: (productId: number) => void;
   subtractQuantity: (productId: number) => void;
   removeProductFromCart: (productId: number) => void;
+  removeAllproducs: () => void;
 };
 
 type Props = {
@@ -70,9 +71,41 @@ export const CartProvider = ({ children }: Props) => {
     setProductsInCart((prve) => prve.filter((item) => item.productId !== productId));
   };
 
+  const removeAllproducs = () => {
+    const swalWithTailwindColors = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success m-2",
+        cancelButton: "btn btn-error",
+      },
+      buttonsStyling: false,
+    });
+    void swalWithTailwindColors
+      .fire({
+        title: "Are you sure?",
+        text: "to remove all products",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          setProductsInCart([]);
+          void MySwal.fire("Deleted!", "Products has been deleted.", "success");
+        }
+      });
+  };
+
   return (
     <CartContext.Provider
-      value={{ productsInCart, addProductToCart, addQuantity, subtractQuantity, removeProductFromCart }}
+      value={{
+        productsInCart,
+        addProductToCart,
+        addQuantity,
+        subtractQuantity,
+        removeProductFromCart,
+        removeAllproducs,
+      }}
     >
       {children}
     </CartContext.Provider>
