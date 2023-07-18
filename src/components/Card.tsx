@@ -12,7 +12,7 @@ interface CardProps {
     count: number;
   };
   title: string;
-  handleAddProductToCart: (id: number, image: string, price: number, title: string) => void;
+  handleAddProductToCart: (id: number, price: number) => void;
 }
 
 function Card({ id, image, title, description, price, rating, category, handleAddProductToCart }: CardProps) {
@@ -33,7 +33,7 @@ function Card({ id, image, title, description, price, rating, category, handleAd
         </span>
         <div className="card-actions justify-between items-center">
           <span className="text-xl font-semibold">{price}$</span>
-          <button className="btn btn-ghost" onClick={() => handleAddProductToCart(id, image, price, title)}>
+          <button className="btn btn-ghost" onClick={() => handleAddProductToCart(id, price)}>
             Buy Now
           </button>
         </div>
