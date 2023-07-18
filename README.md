@@ -16,7 +16,7 @@
 
 - [x] Add product to cart
 - [x] Remove product from cart
-- [ ] Calculate total price
+- [x] Calculate total price
 - [x] Add, Subtract quantity
 
 #### Dark Mode
@@ -33,6 +33,7 @@
 
 - Vite
 - React
+- SweetAlert2
 - TypeScript
 - Tailwind CSS
 - DaisyUI
