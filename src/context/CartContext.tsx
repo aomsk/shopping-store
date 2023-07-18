@@ -14,6 +14,8 @@ export type CartContextType = {
   addProductToCart: (producrt: ICartContext) => void;
   addQuantity: (productId: number) => void;
   subtractQuantity: (productId: number) => void;
+  removeProductFromCart: (productId: number) => void;
+  removeAllproducs: () => void;
 };
 
 type Props = {
@@ -52,14 +54,60 @@ export const CartProvider = ({ children }: Props) => {
   };
 
   const addQuantity = (productId: number) => {
-    setProductsInCart((prve) => prve.map((item) => (item.productId === productId ? { ...item, quantity: item.quantity + 1 } : item)));
+    setProductsInCart((prve) =>
+      prve.map((item) => (item.productId === productId ? { ...item, quantity: item.quantity + 1 } : item))
+    );
   };
 
   const subtractQuantity = (productId: number) => {
     setProductsInCart((prve) =>
-      prve.map((item) => (item.productId === productId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item))
+      prve.map((item) =>
+        item.productId === productId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+      )
     );
   };
 
-  return <CartContext.Provider value={{ productsInCart, addProductToCart, addQuantity, subtractQuantity }}>{children}</CartContext.Provider>;
+  const removeProductFromCart = (productId: number) => {
+    setProductsInCart((prve) => prve.filter((item) => item.productId !== productId));
+  };
+
+  const removeAllproducs = () => {
+    const swalWithTailwindColors = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success m-2",
+        cancelButton: "btn btn-error",
+      },
+      buttonsStyling: false,
+    });
+    void swalWithTailwindColors
+      .fire({
+        title: "Are you sure?",
+        text: "to remove all products",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          setProductsInCart([]);
+          void MySwal.fire("Deleted!", "Products has been deleted.", "success");
+        }
+      });
+  };
+
+  return (
+    <CartContext.Provider
+      value={{
+        productsInCart,
+        addProductToCart,
+        addQuantity,
+        subtractQuantity,
+        removeProductFromCart,
+        removeAllproducs,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
 };
