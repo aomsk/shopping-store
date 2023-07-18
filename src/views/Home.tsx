@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
-import { useEffect, useState, ChangeEvent } from "react";
+import { useEffect, useState, ChangeEvent, useContext } from "react";
 
 // Components
 import Card from "../components/Card";
@@ -9,18 +9,21 @@ import BadgeCategory from "../components/BadgeCategory";
 // Util
 import { Products } from "../utils/interface";
 
-const categories: string[] = [
-  "electronics",
-  "jewelery",
-  "men's clothing",
-  "women's clothing",
-  "all",
-];
+// Context
+import { CartContext, CartContextType } from "../context/CartContext";
+
+const categories: string[] = ["electronics", "jewelery", "men's clothing", "women's clothing", "all"];
 
 function Home() {
   const [products, setProducts] = useState<Products[]>([]);
   const [selectCategory, setSelectCategory] = useState("all");
   const [search, setSearch] = useState<string>("");
+
+  const { addProductToCart } = useContext(CartContext) as CartContextType;
+
+  const handleAddProductToCart = (productId: number, price: number) => {
+    addProductToCart({ productId, quantity: 1, price });
+  };
 
   const getProductData = async () => {
     if (selectCategory === "all") {
@@ -91,11 +94,7 @@ function Home() {
           })}
         </div>
         <div className="w-full p-5">
-          {search.length > 0 ? (
-            ""
-          ) : (
-            <p className="text-2xl font-semibold text-end">Products: {products.length}</p>
-          )}
+          {search.length > 0 ? "" : <p className="text-2xl font-semibold text-end">Products: {products.length}</p>}
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-5 p-5">
@@ -103,7 +102,7 @@ function Home() {
           products
             .filter((product) => product.title.toLowerCase().includes(search.toLowerCase()))
             .map((product) => {
-              return <Card key={product.id} {...product} />;
+              return <Card key={product.id} {...product} handleAddProductToCart={handleAddProductToCart} />;
             })}
       </div>
     </>

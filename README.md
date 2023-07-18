@@ -14,10 +14,14 @@
 
 #### Cart
 
-- [ ] Add product to cart
-- [ ] Remove product from cart
-- [ ] Calculate total price
-- [ ] Add, Subtract quantity
+- [x] Add product to cart
+- [x] Remove product from cart
+- [x] Calculate total price
+- [x] Add, Subtract quantity
+
+#### Dark Mode
+
+- [ ] Support dark, light mode
 
 #### Etc.
 
@@ -29,6 +33,7 @@
 
 - Vite
 - React
+- SweetAlert2
 - TypeScript
 - Tailwind CSS
 - DaisyUI

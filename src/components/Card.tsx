@@ -12,13 +12,14 @@ interface CardProps {
     count: number;
   };
   title: string;
+  handleAddProductToCart: (id: number, price: number) => void;
 }
 
-function Card({ id, image, title, description, price, rating, category }: CardProps) {
+function Card({ id, image, title, description, price, rating, category, handleAddProductToCart }: CardProps) {
   return (
     <div key={id} className="card card-compact w-auto bg-base-100 shadow-xl pt-5">
       <figure>
-        <img src={image} alt="Shoes" className="w-[100px]" />
+        <img src={image} alt="" className="w-[100px]" />
       </figure>
       <div className="card-body">
         <Link to={`/product/${id}`}>
@@ -32,7 +33,9 @@ function Card({ id, image, title, description, price, rating, category }: CardPr
         </span>
         <div className="card-actions justify-between items-center">
           <span className="text-xl font-semibold">{price}$</span>
-          <button className="btn btn-ghost">Buy Now</button>
+          <button className="btn btn-ghost" onClick={() => handleAddProductToCart(id, price)}>
+            Buy Now
+          </button>
         </div>
       </div>
     </div>
