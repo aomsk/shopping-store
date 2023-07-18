@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
 import { Products } from "../utils/interface";
@@ -9,13 +9,17 @@ import { CartContext, CartContextType } from "../context/CartContext";
 
 function ProductDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [product, setProduct] = useState<Products>();
 
+  // Context
   const { addProductToCart } = useContext(CartContext) as CartContextType;
 
-  const handleAddProductToCart = (productId: number) => {
-    addProductToCart({ productId, quantity: 1 });
+  const handleAddProductToCart = (productId: number, price: number) => {
+    addProductToCart({ productId, quantity: 1, price });
   };
+  // -------------
 
   const getProductData = async () => {
     await axios
@@ -49,11 +53,14 @@ function ProductDetail() {
           <AiFillStar className="mr-1 text-2xl" />
           {product?.rating.rate}
         </span>
-        <p className="mt-5">{product?.description}</p>
+        <p className="mt-5 text-justify">{product?.description}</p>
         <div className="flex items-end mt-10">
           <p className="text-2xl font-bold mr-10">Price: {product?.price}$</p>
-          <button type="button" className="btn" onClick={() => handleAddProductToCart(product.id)}>
+          <button type="button" className="btn mr-1" onClick={() => handleAddProductToCart(product.id, product.price)}>
             Buy Now
+          </button>
+          <button type="button" className="btn" onClick={() => navigate("/")}>
+            Back
           </button>
         </div>
       </div>
