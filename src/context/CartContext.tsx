@@ -14,6 +14,7 @@ export type CartContextType = {
   addProductToCart: (producrt: ICartContext) => void;
   addQuantity: (productId: number) => void;
   subtractQuantity: (productId: number) => void;
+  removeProductFromCart: (productId: number) => void;
 };
 
 type Props = {
@@ -52,14 +53,28 @@ export const CartProvider = ({ children }: Props) => {
   };
 
   const addQuantity = (productId: number) => {
-    setProductsInCart((prve) => prve.map((item) => (item.productId === productId ? { ...item, quantity: item.quantity + 1 } : item)));
+    setProductsInCart((prve) =>
+      prve.map((item) => (item.productId === productId ? { ...item, quantity: item.quantity + 1 } : item))
+    );
   };
 
   const subtractQuantity = (productId: number) => {
     setProductsInCart((prve) =>
-      prve.map((item) => (item.productId === productId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item))
+      prve.map((item) =>
+        item.productId === productId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+      )
     );
   };
 
-  return <CartContext.Provider value={{ productsInCart, addProductToCart, addQuantity, subtractQuantity }}>{children}</CartContext.Provider>;
+  const removeProductFromCart = (productId: number) => {
+    setProductsInCart((prve) => prve.filter((item) => item.productId !== productId));
+  };
+
+  return (
+    <CartContext.Provider
+      value={{ productsInCart, addProductToCart, addQuantity, subtractQuantity, removeProductFromCart }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
 };

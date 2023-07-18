@@ -7,7 +7,9 @@ import { Products } from "../utils/interface";
 import { CartContext, CartContextType } from "../context/CartContext";
 
 function Cart() {
-  const { productsInCart, addQuantity, subtractQuantity } = useContext(CartContext) as CartContextType;
+  const { productsInCart, addQuantity, subtractQuantity, removeProductFromCart } = useContext(
+    CartContext
+  ) as CartContextType;
   const navigate = useNavigate();
   const [products, setproducts] = useState<Products[]>([]);
 
@@ -17,6 +19,10 @@ function Cart() {
 
   const handleSubtractQuantity = (productId: number | undefined) => {
     subtractQuantity(productId as number);
+  };
+
+  const handleRemoveProductFromCart = (productId: number | undefined) => {
+    removeProductFromCart(productId as number);
   };
 
   const getData = async () => {
@@ -37,7 +43,9 @@ function Cart() {
     });
   }, [productsInCart]);
 
-  const productsInCartFilter = productsInCart.map((cartItem) => products.find((product) => product.id === cartItem.productId));
+  const productsInCartFilter = productsInCart.map((cartItem) =>
+    products.find((product) => product.id === cartItem.productId)
+  );
 
   return (
     <div className="container mx-auto xl:px-48">
@@ -64,7 +72,12 @@ function Cart() {
                     <button className="btn join-item" onClick={() => handleSubtractQuantity(product?.id)}>
                       -
                     </button>
-                    <button className="btn btn-error join-item">Delete</button>
+                    <button
+                      className="btn btn-error join-item"
+                      onClick={() => handleRemoveProductFromCart(product?.id)}
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
               </div>

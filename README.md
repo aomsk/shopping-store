@@ -15,7 +15,7 @@
 #### Cart
 
 - [x] Add product to cart
-- [ ] Remove product from cart
+- [x] Remove product from cart
 - [ ] Calculate total price
 - [x] Add, Subtract quantity
 
