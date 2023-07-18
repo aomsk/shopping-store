@@ -17,7 +17,7 @@
 - [x] Add product to cart
 - [ ] Remove product from cart
 - [ ] Calculate total price
-- [ ] Add, Subtract quantity
+- [x] Add, Subtract quantity
 
 #### Dark Mode
 
