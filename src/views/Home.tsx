@@ -12,13 +12,7 @@ import { Products } from "../utils/interface";
 // Context
 import { CartContext, CartContextType } from "../context/CartContext";
 
-const categories: string[] = [
-  "electronics",
-  "jewelery",
-  "men's clothing",
-  "women's clothing",
-  "all",
-];
+const categories: string[] = ["electronics", "jewelery", "men's clothing", "women's clothing", "all"];
 
 function Home() {
   const [products, setProducts] = useState<Products[]>([]);
@@ -77,48 +71,23 @@ function Home() {
           <label className="label">
             <span className="label-text">What do you want?</span>
           </label>
-          <input
-            type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full"
-            value={search}
-            onChange={handleChange}
-          />
+          <input type="text" placeholder="Type here" className="input input-bordered w-full" value={search} onChange={handleChange} />
         </div>
       </div>
       <div className="flex flex-col items-center">
         <div className="p-5 w-full">
           {categories.map((category, index) => {
-            return (
-              <BadgeCategory
-                key={index}
-                category={category}
-                selectCategory={selectCategory}
-                setSelectCategory={setSelectCategory}
-              />
-            );
+            return <BadgeCategory key={index} category={category} selectCategory={selectCategory} setSelectCategory={setSelectCategory} />;
           })}
         </div>
-        <div className="w-full p-5">
-          {search.length > 0 ? (
-            ""
-          ) : (
-            <p className="text-2xl font-semibold text-end">Products: {products.length}</p>
-          )}
-        </div>
+        <div className="w-full p-5">{search.length > 0 ? "" : <p className="text-2xl font-semibold text-end">Products: {products.length}</p>}</div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-5 p-5">
         {products &&
           products
             .filter((product) => product.title.toLowerCase().includes(search.toLowerCase()))
             .map((product) => {
-              return (
-                <Card
-                  key={product.id}
-                  {...product}
-                  handleAddProductToCart={handleAddProductToCart}
-                />
-              );
+              return <Card key={product.id} {...product} handleAddProductToCart={handleAddProductToCart} />;
             })}
       </div>
     </>
