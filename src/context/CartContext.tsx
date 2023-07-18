@@ -82,7 +82,7 @@ export const CartProvider = ({ children }: Props) => {
       if (item.productId === newProduct.productId) {
         void MySwal.fire({
           icon: "warning",
-          title: "Product already exists in cart",
+          title: "Product Already Exists In Cart",
           showConfirmButton: false,
           timer: 1500,
         });
