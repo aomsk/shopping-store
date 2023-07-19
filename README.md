@@ -21,7 +21,7 @@
 
 #### Dark Mode
 
-- [ ] Support dark, light mode
+- [x] Support dark, light mode
 
 #### Etc.
 
