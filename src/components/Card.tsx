@@ -23,17 +23,20 @@ function Card({ id, image, title, description, price, rating, category, handleAd
       </figure>
       <div className="card-body">
         <Link to={`/product/${id}`}>
-          <h2 className="card-title">{title}</h2>
+          <h2 className="card-title text-[1rem]">{title}</h2>
         </Link>
         <div className="badge badge-outline">{category}</div>
-        <p>{description.substring(0, 50)}</p>
+        <p>{description.substring(0, 50)}...</p>
         <span className="flex items-center">
           <AiFillStar className="mr-1 text-lg" />
           {rating.rate}
         </span>
         <div className="card-actions justify-between items-center">
           <span className="text-xl font-semibold">{price}$</span>
-          <button className="btn btn-ghost" onClick={() => handleAddProductToCart(id, price)}>
+          <button
+            className="btn btn-sm btn-primary btn-outline rounded-full"
+            onClick={() => handleAddProductToCart(id, price)}
+          >
             Buy Now
           </button>
         </div>

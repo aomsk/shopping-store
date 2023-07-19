@@ -46,8 +46,8 @@ function ProductDetail() {
       <div className="flex justify-center">
         <img src={product?.image} alt="" className="w-[150px] xl:w-[300px] h-fit pt-2" />
       </div>
-      <div className="p-10">
-        <h1 className="text-4xl font-bold">{product?.title}</h1>
+      <div className="p-6">
+        <h1 className="text-xl xl:text-2xl font-bold">{product?.title}</h1>
         <div className="badge badge-outline mt-5">{product?.category}</div>
         <span className="flex items-center mt-5">
           <AiFillStar className="mr-1 text-2xl" />
@@ -55,11 +55,15 @@ function ProductDetail() {
         </span>
         <p className="mt-5 text-justify">{product?.description}</p>
         <div className="flex items-end mt-10">
-          <p className="text-2xl font-bold mr-10">Price: {product?.price}$</p>
-          <button type="button" className="btn mr-1" onClick={() => handleAddProductToCart(product.id, product.price)}>
+          <p className="text-xl xl:text-2xl font-bold mr-10">Price: {product?.price}$</p>
+          <button
+            type="button"
+            className="btn btn-sm btn-primary btn-outline rounded-full mr-1"
+            onClick={() => handleAddProductToCart(product.id, product.price)}
+          >
             Buy Now
           </button>
-          <button type="button" className="btn" onClick={() => navigate("/")}>
+          <button type="button" className="btn btn-sm rounded-full" onClick={() => navigate("/")}>
             Back
           </button>
         </div>
