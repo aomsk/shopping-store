@@ -16,8 +16,10 @@ function ProductDetail() {
   // Context
   const { addProductToCart } = useContext(CartContext) as CartContextType;
 
-  const handleAddProductToCart = (productId: number, price: number) => {
-    addProductToCart({ productId, quantity: 1, price });
+  const handleAddProductToCart = (productId: number | undefined, price: number | undefined) => {
+    if (productId !== undefined && price !== undefined) {
+      addProductToCart({ productId, quantity: 1, price });
+    }
   };
   // -------------
 
@@ -59,7 +61,7 @@ function ProductDetail() {
           <button
             type="button"
             className="btn btn-sm btn-primary btn-outline rounded-full mr-1"
-            onClick={() => handleAddProductToCart(product.id, product.price)}
+            onClick={() => handleAddProductToCart(product?.id, product?.price)}
           >
             Buy Now
           </button>
