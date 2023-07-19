@@ -82,6 +82,7 @@ function Home() {
       </div>
       <div className="flex flex-col items-center">
         <div className="p-5 w-full">
+          <h4 className="xl:pl-5 mb-1 font-semibold">Categories</h4>
           {categories.map((category, index) => {
             return (
               <BadgeCategory
@@ -94,7 +95,7 @@ function Home() {
           })}
         </div>
         <div className="w-full p-5">
-          {search.length > 0 ? "" : <p className="text-2xl font-semibold text-end">Products: {products.length}</p>}
+          {search.length > 0 ? "" : <p className="text-lg font-semibold text-end">Products: {products.length}</p>}
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-5 p-5">

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
 import { Products } from "../utils/interface";
@@ -9,13 +9,17 @@ import { CartContext, CartContextType } from "../context/CartContext";
 
 function ProductDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [product, setProduct] = useState<Products>();
 
+  // Context
   const { addProductToCart } = useContext(CartContext) as CartContextType;
 
-  const handleAddProductToCart = (productId: number) => {
-    addProductToCart({ productId, quantity: 1 });
+  const handleAddProductToCart = (productId: number, price: number) => {
+    addProductToCart({ productId, quantity: 1, price });
   };
+  // -------------
 
   const getProductData = async () => {
     await axios
@@ -42,18 +46,25 @@ function ProductDetail() {
       <div className="flex justify-center">
         <img src={product?.image} alt="" className="w-[150px] xl:w-[300px] h-fit pt-2" />
       </div>
-      <div className="p-10">
-        <h1 className="text-4xl font-bold">{product?.title}</h1>
+      <div className="p-6">
+        <h1 className="text-xl xl:text-2xl font-bold">{product?.title}</h1>
         <div className="badge badge-outline mt-5">{product?.category}</div>
         <span className="flex items-center mt-5">
           <AiFillStar className="mr-1 text-2xl" />
           {product?.rating.rate}
         </span>
-        <p className="mt-5">{product?.description}</p>
+        <p className="mt-5 text-justify">{product?.description}</p>
         <div className="flex items-end mt-10">
-          <p className="text-2xl font-bold mr-10">Price: {product?.price}$</p>
-          <button type="button" className="btn" onClick={() => handleAddProductToCart(product.id)}>
+          <p className="text-xl xl:text-2xl font-bold mr-10">Price: {product?.price}$</p>
+          <button
+            type="button"
+            className="btn btn-sm btn-primary btn-outline rounded-full mr-1"
+            onClick={() => handleAddProductToCart(product.id, product.price)}
+          >
             Buy Now
+          </button>
+          <button type="button" className="btn btn-sm rounded-full" onClick={() => navigate("/")}>
+            Back
           </button>
         </div>
       </div>

@@ -57,10 +57,10 @@ function Cart() {
   return (
     <div className="container mx-auto xl:px-48">
       <div className="p-5 text-end">
-        <h1 className="text-xl xl:text-2xl font-semibold">Total Price : {formatMoney(totalPrice)} $</h1>
-        <h1 className="text-xl xl:text-2xl font-semibold">Amount : {totalAmount}</h1>
+        <h1 className="text-[1rem] xl:text-lg font-semibold">Total Price : {formatMoney(totalPrice)} $</h1>
+        <h1 className="text-[1rem] xl:text-lg font-semibold">Amount : {totalAmount}</h1>
         {productsInCart.length > 0 && (
-          <button className="btn btn-outline btn-error btn-sm mt-2" onClick={removeAllproducs}>
+          <button className="btn btn-outline btn-error rounded-full btn-sm mt-2" onClick={removeAllproducs}>
             Delete ALl
           </button>
         )}
@@ -73,19 +73,25 @@ function Cart() {
                 <img src={product?.image} alt="" className="w-full md:w-[100px] lg:w-[100px] xl:w-[100px]" />
               </figure>
               <div className="card-body">
-                <h2 className="card-title">{product?.title}</h2>
-                <p>Price : {product?.price}</p>
-                <p>Quantity : {productsInCart[index]?.quantity}</p>
+                <h2 className="card-title text-[.8rem] xl:text-lg">{product?.title}</h2>
+                <p className="text-[.8rem] xl:text-lg">Price : {product?.price}</p>
+                <p className="text-[.8rem] xl:text-lg">Quantity : {productsInCart[index]?.quantity}</p>
                 <div className="card-actions justify-end">
                   <div className="join">
-                    <button className="btn join-item" onClick={() => handleAddQuantity(product?.id)}>
+                    <button
+                      className="btn btn-sm join-item rounded-full"
+                      onClick={() => handleAddQuantity(product?.id)}
+                    >
                       +
                     </button>
-                    <button className="btn join-item" onClick={() => handleSubtractQuantity(product?.id)}>
+                    <button
+                      className="btn btn-sm join-item rounded-full"
+                      onClick={() => handleSubtractQuantity(product?.id)}
+                    >
                       -
                     </button>
                     <button
-                      className="btn btn-error join-item"
+                      className="btn btn-sm btn-error join-item rounded-full"
                       onClick={() => handleRemoveProductFromCart(product?.id)}
                     >
                       Delete
@@ -98,8 +104,8 @@ function Cart() {
         })
       ) : (
         <div className="flex flex-col items-center mt-48">
-          <h1 className="text-center text-xl xl:text-2xl font-semibold">Cart Empty</h1>
-          <button type="button" className="btn mt-4" onClick={() => navigate("/")}>
+          <h1 className="text-center text-md xl:text-lg font-semibold">Cart Empty</h1>
+          <button type="button" className="btn btn-sm rounded-full mt-4" onClick={() => navigate("/")}>
             Back To Home
           </button>
         </div>

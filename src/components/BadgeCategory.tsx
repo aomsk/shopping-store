@@ -9,7 +9,7 @@ function BadgeCategory({ category, selectCategory, setSelectCategory }: BadgeCat
     <div
       className={
         selectCategory === category
-          ? "badge badge-neutral ml-1 xl:ml-5 cursor-pointer"
+          ? "badge badge-primary ml-1 xl:ml-5 cursor-pointer"
           : "badge badge-outline ml-1 xl:ml-5 cursor-pointer"
       }
       onClick={() => setSelectCategory(category)}
