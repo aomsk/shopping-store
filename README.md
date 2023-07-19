@@ -1,4 +1,5 @@
 # Shopping-Store
+![desktop-screenshots](https://github.com/aomsk/shopping-store/blob/develop/src/assets/screenshots/desktop-screenshots.png?raw=true)
 
 ### Features
 
