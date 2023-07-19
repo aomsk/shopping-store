@@ -1,8 +1,21 @@
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
-import { Products } from "../utils/interface";
+// import { Products } from "../utils/interface";
 import { AiFillStar } from "react-icons/ai";
+
+type Product = {
+  category: string;
+  description: string;
+  id: number;
+  image: string;
+  price: number;
+  rating: {
+    rate: number;
+    count: number;
+  };
+  title: string;
+};
 
 // Context
 import { CartContext, CartContextType } from "../context/CartContext";
@@ -11,13 +24,15 @@ function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [product, setProduct] = useState<Products>();
+  const [product, setProduct] = useState<Product>();
 
   // Context
   const { addProductToCart } = useContext(CartContext) as CartContextType;
 
-  const handleAddProductToCart = (productId: number, price: number) => {
-    addProductToCart({ productId, quantity: 1, price });
+  const handleAddProductToCart = (productId: number | undefined, price: number | undefined) => {
+    if (productId !== undefined && price !== undefined) {
+      addProductToCart({ productId, quantity: 1, price });
+    }
   };
   // -------------
 
@@ -59,7 +74,7 @@ function ProductDetail() {
           <button
             type="button"
             className="btn btn-sm btn-primary btn-outline rounded-full mr-1"
-            onClick={() => handleAddProductToCart(product.id, product.price)}
+            onClick={() => handleAddProductToCart(product?.id, product?.price)}
           >
             Buy Now
           </button>
