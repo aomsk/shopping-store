@@ -46,7 +46,7 @@ function ProductDetail() {
   return (
     <div className="grid grid-cols-1 xl:grid-cols-2 xl:px-10 xl:pt-10">
       <div className="flex justify-center">
-        <img src={product?.image} alt="" className="w-[150px] xl:w-[300px] h-fit pt-2" />
+        <img src={product?.image} alt="" className="w-[150px] xl:w-[200px] xl:h-fit max-h-fit pt-2" />
       </div>
       <div className="p-6">
         <h1 className="text-xl xl:text-2xl font-bold">{product?.title}</h1>
