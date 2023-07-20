@@ -8,6 +8,7 @@ import Home from "./views/Home";
 import ProductDetail from "./views/ProductDetail";
 import Cart from "./views/Cart";
 import NotFound from "./views/NotFound";
+import CheckOut from "./views/CheckOut";
 
 // Context
 import { CartProvider } from "./context/CartContext";
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<CheckOut />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </>

@@ -2,9 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Products } from "../utils/interface";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 // Context
 import { CartContext, CartContextType } from "../context/CartContext";
+
+const MySwal = withReactContent(Swal);
 
 function Cart() {
   const {
@@ -16,6 +20,7 @@ function Cart() {
     totalPrice,
     totalAmount,
     formatMoney,
+    checkout,
   } = useContext(CartContext) as CartContextType;
   const navigate = useNavigate();
   const [products, setproducts] = useState<Products[]>([]);
@@ -60,9 +65,14 @@ function Cart() {
         <h1 className="text-[1rem] xl:text-lg font-semibold">Total Price : {formatMoney(totalPrice)} $</h1>
         <h1 className="text-[1rem] xl:text-lg font-semibold">Amount : {totalAmount}</h1>
         {productsInCart.length > 0 && (
-          <button className="btn btn-outline btn-error rounded-full btn-sm mt-2" onClick={removeAllproducs}>
-            Delete ALl
-          </button>
+          <div className="flex flex-col items-end">
+            <button className="btn btn-outline btn-error rounded-full btn-sm mt-2" onClick={removeAllproducs}>
+              Delete ALl
+            </button>
+            <button className="btn btn-outline btn-accent rounded-full btn-sm mt-2" onClick={checkout}>
+              Checkout
+            </button>
+          </div>
         )}
       </div>
       {productsInCartFilter.length > 0 ? (

@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { useNavigate } from "react-router-dom";
 
 const MySwal = withReactContent(Swal);
 
@@ -18,6 +19,7 @@ export type CartContextType = {
   removeProductFromCart: (productId: number) => void;
   removeAllproducs: () => void;
   formatMoney: (money: number) => string;
+  checkout: () => void;
   totalPrice: number;
   totalAmount: number;
 };
@@ -32,6 +34,7 @@ export const CartProvider = ({ children }: Props) => {
   const [productsInCart, setProductsInCart] = useState<ICartContext[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalAmount, setTotalAmount] = useState<number>(0);
+  const navigate = useNavigate();
 
   // Calculate total and amount
   useEffect(() => {
@@ -130,6 +133,32 @@ export const CartProvider = ({ children }: Props) => {
       });
   };
 
+  const checkout = () => {
+    const swalWithTailwindColors = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success m-2",
+        cancelButton: "btn btn-error",
+      },
+      buttonsStyling: false,
+    });
+    void swalWithTailwindColors
+      .fire({
+        title: "Are you sure?",
+        text: "to check out all products",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes!!",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          setProductsInCart([]);
+          void MySwal.fire("Check Out!", "Products has been check out.", "success");
+          navigate("/checkout");
+        }
+      });
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -142,6 +171,7 @@ export const CartProvider = ({ children }: Props) => {
         formatMoney,
         totalPrice,
         totalAmount,
+        checkout,
       }}
     >
       {children}
