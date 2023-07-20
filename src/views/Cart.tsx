@@ -70,12 +70,19 @@ function Cart() {
           return (
             <div className="card card-side bg-base-100 shadow-xl m-5 xl:pl-8 pl-5" key={index}>
               <figure>
-                <img src={product?.image} alt="" className="w-full md:w-[100px] lg:w-[100px] xl:w-[100px]" />
+                <img
+                  src={product?.image}
+                  alt=""
+                  className="p-2 w-full md:w-[100px] md:p-3 lg:w-[100px] lg:p-2 xl:w-[100px] xl:p-0"
+                />
               </figure>
               <div className="card-body">
                 <h2 className="card-title text-[.8rem] xl:text-lg">{product?.title}</h2>
-                <p className="text-[.8rem] xl:text-lg">Price : {product?.price}</p>
-                <p className="text-[.8rem] xl:text-lg">Quantity : {productsInCart[index]?.quantity}</p>
+                <p className="text-[.8rem] xl:text-lg font-medium">Price : {product?.price.toFixed(2)} $</p>
+                <p className="text-[.8rem] xl:text-lg font-medium">Quantity : {productsInCart[index]?.quantity}</p>
+                <p className="text-[.8rem] xl:text-lg font-medium">
+                  Total Price : {formatMoney(product?.price * productsInCart[index]?.quantity)} $
+                </p>
                 <div className="card-actions justify-end">
                   <div className="join">
                     <button

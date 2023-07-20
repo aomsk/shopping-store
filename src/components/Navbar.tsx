@@ -5,7 +5,7 @@ import { useState, useEffect, useContext, ChangeEvent } from "react";
 import { CartContext, CartContextType } from "../context/CartContext";
 
 function Navbar() {
-  const { productsInCart, totalPrice } = useContext(CartContext) as CartContextType;
+  const { productsInCart, totalPrice, formatMoney } = useContext(CartContext) as CartContextType;
   const navigate = useNavigate();
 
   const [theme, setTheme] = useState<string | null>(
@@ -56,7 +56,7 @@ function Navbar() {
           <div tabIndex={0} className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow">
             <div className="card-body">
               <span className="font-bold text-lg">{productsInCart.length} Items</span>
-              <span className="text-info">Subtotal: ${totalPrice}</span>
+              <span className="text-info">Subtotal: ${formatMoney(totalPrice)}</span>
               <div className="card-actions">
                 <button className="btn btn-sm btn-primary btn-block rounded-full" onClick={() => navigate("/cart")}>
                   View cart
