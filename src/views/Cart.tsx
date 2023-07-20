@@ -2,13 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Products } from "../utils/interface";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 
 // Context
 import { CartContext, CartContextType } from "../context/CartContext";
-
-const MySwal = withReactContent(Swal);
 
 function Cart() {
   const {
@@ -91,7 +87,7 @@ function Cart() {
                 <p className="text-[.8rem] xl:text-lg font-medium">Price : {product?.price.toFixed(2)} $</p>
                 <p className="text-[.8rem] xl:text-lg font-medium">Quantity : {productsInCart[index]?.quantity}</p>
                 <p className="text-[.8rem] xl:text-lg font-medium">
-                  Total Price : {formatMoney(product?.price * productsInCart[index]?.quantity)} $
+                  Total Price : {formatMoney((product?.price as number) * productsInCart[index]?.quantity)} $
                 </p>
                 <div className="card-actions justify-end">
                   <div className="join">
