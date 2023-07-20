@@ -27,6 +27,10 @@ function ProductDetail() {
     await axios
       .get(`${import.meta.env.VITE_PRODUCTS_API}/products/${id}`)
       .then((response) => {
+        console.log("response: ", response);
+        if (response.status === 200 && response.data === "") {
+          navigate("/");
+        }
         if (response.status === 200) {
           setProduct(response.data);
         }
@@ -53,7 +57,7 @@ function ProductDetail() {
         <div className="badge badge-outline mt-5">{product?.category}</div>
         <span className="flex items-center mt-5">
           <AiFillStar className="mr-1 text-2xl" />
-          {product?.rating.rate}
+          {product?.rating?.rate}
         </span>
         <p className="mt-5 text-justify">{product?.description}</p>
         <div className="flex items-end mt-10">

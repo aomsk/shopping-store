@@ -2,9 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Products } from "../utils/interface";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 // Context
 import { CartContext, CartContextType } from "../context/CartContext";
+
+const MySwal = withReactContent(Swal);
 
 function Cart() {
   const {
@@ -16,6 +20,7 @@ function Cart() {
     totalPrice,
     totalAmount,
     formatMoney,
+    checkout,
   } = useContext(CartContext) as CartContextType;
   const navigate = useNavigate();
   const [products, setproducts] = useState<Products[]>([]);
@@ -60,9 +65,14 @@ function Cart() {
         <h1 className="text-[1rem] xl:text-lg font-semibold">Total Price : {formatMoney(totalPrice)} $</h1>
         <h1 className="text-[1rem] xl:text-lg font-semibold">Amount : {totalAmount}</h1>
         {productsInCart.length > 0 && (
-          <button className="btn btn-outline btn-error rounded-full btn-sm mt-2" onClick={removeAllproducs}>
-            Delete ALl
-          </button>
+          <div className="flex flex-col items-end">
+            <button className="btn btn-outline btn-error rounded-full btn-sm mt-2" onClick={removeAllproducs}>
+              Delete ALl
+            </button>
+            <button className="btn btn-outline btn-accent rounded-full btn-sm mt-2" onClick={checkout}>
+              Checkout
+            </button>
+          </div>
         )}
       </div>
       {productsInCartFilter.length > 0 ? (
@@ -70,12 +80,19 @@ function Cart() {
           return (
             <div className="card card-side bg-base-100 shadow-xl m-5 xl:pl-8 pl-5" key={index}>
               <figure>
-                <img src={product?.image} alt="" className="w-full md:w-[100px] lg:w-[100px] xl:w-[100px]" />
+                <img
+                  src={product?.image}
+                  alt=""
+                  className="p-2 w-full md:w-[100px] md:p-3 lg:w-[100px] lg:p-2 xl:w-[100px] xl:p-0"
+                />
               </figure>
               <div className="card-body">
                 <h2 className="card-title text-[.8rem] xl:text-lg">{product?.title}</h2>
-                <p className="text-[.8rem] xl:text-lg">Price : {product?.price}</p>
-                <p className="text-[.8rem] xl:text-lg">Quantity : {productsInCart[index]?.quantity}</p>
+                <p className="text-[.8rem] xl:text-lg font-medium">Price : {product?.price.toFixed(2)} $</p>
+                <p className="text-[.8rem] xl:text-lg font-medium">Quantity : {productsInCart[index]?.quantity}</p>
+                <p className="text-[.8rem] xl:text-lg font-medium">
+                  Total Price : {formatMoney(product?.price * productsInCart[index]?.quantity)} $
+                </p>
                 <div className="card-actions justify-end">
                   <div className="join">
                     <button

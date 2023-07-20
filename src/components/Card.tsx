@@ -32,7 +32,7 @@ function Card({ id, image, title, description, price, rating, category, handleAd
           {rating.rate}
         </span>
         <div className="card-actions justify-between items-center">
-          <span className="text-xl font-semibold">{price}$</span>
+          <span className="text-xl font-semibold">{price.toFixed(2)}$</span>
           <button
             className="btn btn-sm btn-primary btn-outline rounded-full"
             onClick={() => handleAddProductToCart(id, price)}
