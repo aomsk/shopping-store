@@ -27,7 +27,7 @@ jobs:
       - name: Deploy production to Netlify
         uses: jsmrcaga/action-netlify-deploy@v2.0.0
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+#           github-token: ${{ secrets.GITHUB_TOKEN }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_DEPLOY_MESSAGE: "Deployed from GitHub action"
