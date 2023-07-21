@@ -30,6 +30,7 @@ function Card({ id, image, title, description, price, rating, category, handleAd
         <span className="flex items-center">
           <AiFillStar className="mr-1 text-lg" />
           {rating.rate}
+          <span className="ml-1">({rating.count})</span>
         </span>
         <div className="card-actions justify-between items-center">
           <span className="text-xl font-semibold">{price.toFixed(2)}$</span>
